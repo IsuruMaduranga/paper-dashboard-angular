@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+import { tap } from 'rxjs/operators';
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegistrationService {
 
-  constructor() { }
+  constructor(private firestore: AngularFirestore) { }
 
-  register(data: any): Observable<any> {
-    let url = `${api}/users/registerAdmin`;
-    return this.http.post(url, JSON.stringify(userData), httpOptions);
+  getUsers(email:String) {
+    return this.firestore.collection("users",res=>res.where("email","==",email)).get()
   }
+
+  updateUser(id,data){
+    return this.firestore.collection("users").doc(id).set(data , {merge:true});
+  }
+
+  alerts(){
+    return this.firestore.collection("users").snapshotChanges()
+  }
+
 }

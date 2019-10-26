@@ -1,12 +1,13 @@
 <div class="row">
-  
+
   <div class="col-md-12">
     <div class="card ">
-    
+
       <div class="card-body">
-        <form>
+        <form (ngSubmit)="onSearchSubmit()" #f1="ngForm">
           <div class="input-group no-border">
-            <input type="text" value="" class="form-control" placeholder="Search for guide's email...">
+            <input type="text" value="" class="form-control" placeholder="Search for guide's email..."
+              [(ngModel)]="email" name="email" #e="ngModel">
             <div class="input-group-append">
               <div class="input-group-text">
                 <i class="nc-icon nc-zoom-split"></i>
@@ -18,99 +19,99 @@
     </div>
   </div>
 
-  <div class="col-md-12">
-    <div class="card card-user">
-      <div class="card-header">
-        <h5 class="card-title">Registration Form</h5>
-      </div>
-      <div class="card-body">
-        <form (ngSubmit)="onFormSubmit()" #f="ngForm">
-          
-          <div class="row">
 
-            <div class="col-md-6 pr-1">
-              <div class="form-group">
-                <label>First Name</label> 
-                <input type="text" class="form-control" placeholder="First Name" id="fn" class="form-control" [(ngModel)]="firstName" name="firstName"
-                #fn="ngModel" required pattern="^[A-Za-z]+$">
-                <div class="form-text text-danger" *ngIf="fn.touched && !fn.valid">
-                  <p *ngIf="fn.errors.required">First name is required!</p>
-                  <p *ngIf="fn.errors.pattern">Invalid name!</p>
+  <div class="col-md-12">
+
+    <div *ngIf="id">
+
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Registration Form for {{ email }} </h5>
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="onFormSubmit()" #f="ngForm">
+
+            <div class="row">
+
+              <div class="col-md-6 pr-1">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input type="text" class="form-control" placeholder="First Name" id="fn" class="form-control"
+                    [(ngModel)]="firstName" name="firstName" #fn="ngModel" required pattern="^[A-Za-z]+$">
+                  <div class="form-text text-danger" *ngIf="fn.touched && !fn.valid">
+                    <p *ngIf="fn.errors.required">First name is required!</p>
+                    <p *ngIf="fn.errors.pattern">Invalid name!</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 pl-1">
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input type="text" class="form-control" placeholder="Last Name" id="ln" class="form-control"
+                    [(ngModel)]="lastName" name="lastName" #ln="ngModel" required pattern="^[A-Za-z]+$">
+                  <div class="form-text text-danger" *ngIf="ln.touched && !ln.valid">
+                    <p *ngIf="ln.errors.required">Last name is required!</p>
+                    <p *ngIf="ln.errors.pattern">Invalid name!</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control" placeholder="Address" id="ad" class="form-control"
+                    [(ngModel)]="address" name="address" #ad="ngModel" required>
+                  <div class="form-text text-danger" *ngIf="ln.touched && !ln.valid">
+                    <p *ngIf="ad.errors.required">Address is required!</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-md-6 pl-1">
-              <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" class="form-control" placeholder="Last Name" id="ln" class="form-control" [(ngModel)]="lastName" name="lastName"
-                #ln="ngModel" required pattern="^[A-Za-z]+$">
-                <div class="form-text text-danger" *ngIf="ln.touched && !ln.valid">
-                    <p *ngIf="ln.errors.required">Last name is required!</p>
-                    <p *ngIf="ln.errrs.pattern">Invalid name!</p>
-                  </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Address</label>
-                <input type="text" class="form-control" placeholder="Address" id="ad" class="form-control" [(ngModel)]="address" name="address"
-                #ad="ngModel" required>
-                <div class="form-text text-danger" *ngIf="ad.touched">
-                    <p *ngIf="ad.errors.required">Address is required!</p>
-                  </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4 pr-1">
-              <div class="form-group">
-                <label>NIC number</label>
-                <input type="text" class="form-control" placeholder="NIC"  [(ngModel)]="nic" name="nic" #n="ngModel"
-                required pattern="^[0-9]{9}V$">
-                <div class="form-text text-danger" *ngIf="n.touched && !n.valid">
+            <div class="row">
+              <div class="col-md-4 pr-1">
+                <div class="form-group">
+                  <label>NIC number</label>
+                  <input type="text" class="form-control" placeholder="NIC" [(ngModel)]="nic" name="nic" #n="ngModel"
+                    required pattern="^[0-9]{9}V$">
+                  <div class="form-text text-danger" *ngIf="n.touched && !n.valid">
                     <p *ngIf="n.errors.required">NIC is required!</p>
                     <p *ngIf="n.errors.pattern">Invalid NIC!</p>
                   </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Comfortable languages</label>
+                  <ul>
+                    <li><input type="checkbox"> English</li>
+                    <li><input type="checkbox"> Sinhala</li>
+                    <li><input type="checkbox"> Chinese</li>
+                    <li><input type="checkbox"> Russian</li>
+                    <li><input type="checkbox"> German</li>
+                    <li><input type="checkbox"> Latin</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>Comfortable languages</label>
-                <ul>
-                  <li><input type="checkbox"> English</li>
-                  <li><input type="checkbox"> Sinhala</li>
-                  <li><input type="checkbox"> Chinese</li>
-                  <li><input type="checkbox"> Russian</li>
-                  <li><input type="checkbox"> German</li>
-                  <li><input type="checkbox"> Latin</li>
-                </ul>
+        
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" class="btn btn-primary btn-round" [disabled]="!f.valid">Register</button>
               </div>
             </div>
-          </div>
-          <!-- <div class="row">
-            <div class="col-md-12">
-              <div class="form-group">
-                <label>About Guide</label>
-                <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
-              </div>
-            </div>
-          </div> -->
-          <div class="row">
-            <div class="update ml-auto mr-auto">
-              <button type="submit" class="btn btn-primary btn-round">Register</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
+
     </div>
+
   </div>
 </div>

@@ -14,6 +14,12 @@ import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { RegistrationService } from './services/registration.service';
 
+import { environment } from "../environments/environment";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFirestoreModule } from "@angular/fire/firestore";
+
+import { FormsModule }   from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +35,10 @@ import { RegistrationService } from './services/registration.service';
     NavbarModule,
     ToastrModule.forRoot(),
     FooterModule,
-    FixedPluginModule
+    FixedPluginModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    FormsModule
   ],
   providers: [RegistrationService],
   bootstrap: [AppComponent]

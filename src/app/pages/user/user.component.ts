@@ -14,19 +14,53 @@ export class UserComponent implements OnInit {
     nic: string;
     address: string;
 
-    constructor(private regService:RegistrationService){}
-    
+    id: any;
+    email: string;
+
+    constructor(private regService: RegistrationService) { }
+
     ngOnInit() {
+        this.id = false;
     }
 
-    onSubmit(){
+    onSearchSubmit() {
+        this.regService.getUsers(this.email).subscribe(res => {
+            this.firstName = null;
+            this.lastName = null;
+            this.nic = null;
+            this.address = null;
+            this.id = false;
 
+            res.forEach(e=>{
+        
+                let type = e.data().type
+                if (type == "Guide" ) {
+                    this.id = e.id;
+                }
+            });
+
+            if(!this.id){
+                alert("Invalid Email");
+            }
+
+        });
+    }
+
+    onFormSubmit() {
         const userData = {
-          firstName:this.firstName,
-          lastName:this.lastName,
-          nic:this.nic,
-          address:this.address
+            firstName: this.firstName,
+            lastName: this.lastName,
+            nic: this.nic,
+            address: this.address
         }
-    
-      }
+
+        this.regService.updateUser(this.id,userData).then(e=>{
+            alert("done");
+            this.firstName = null;
+            this.lastName = null;
+            this.nic = null;
+            this.address = null;
+            this.id = false;
+        });
+    }
 }
