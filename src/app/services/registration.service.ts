@@ -12,7 +12,15 @@ export class RegistrationService {
   constructor(private firestore: AngularFirestore) { }
 
   getUsers(email:String) {
-    return this.firestore.collection("users",res=>res.where("email","==",email)).get()
+    return this.firestore.collection("users",res=>res.where("email","==",email)).get();
+  }
+
+  getAllUsers(){
+    return this.firestore.collection("users").get()
+  }
+
+  getGuidesOnline(){
+    return this.firestore.collection("online_guides").snapshotChanges()
   }
 
   updateUser(id,data){
@@ -20,7 +28,7 @@ export class RegistrationService {
   }
 
   alerts(){
-    return this.firestore.collection("users").snapshotChanges()
+    return this.firestore.collection("msgs").snapshotChanges()
   }
 
 }
